@@ -13,16 +13,18 @@ const PokemonList = () => {
 
     const fetchPokemonData = async () => {
       try {
-        //makes an array of len 10 
+        //makes an array of len 10
         const promises = Array.from({ length: 12 }, () =>
-          fetch(`https://pokeapi.co/api/v2/pokemon/${getRandomPokemonId()}/`)
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error("Pokémon not found");
-              }
-              return response.json();
-            })
+          fetch(
+            `https://pokeapi.co/api/v2/pokemon/${getRandomPokemonId()}/`
+          ).then((response) => {
+            if (!response.ok) {
+              throw new Error("Pokémon not found");
+            }
+            return response.json();
+          })
         );
+        console.log(promises);
         const results = await Promise.all(promises);
         setPokemonData(results); // Store the fetched Pokémon data
         shufflePokemonData(results); // Shuffle the Pokémon data
@@ -35,7 +37,7 @@ const PokemonList = () => {
   }, []);
 
   const shufflePokemonData = (data) => {
-    const shuffled = data.sort(() => 0.5 - Math.random() );
+    const shuffled = data.sort(() => 0.5 - Math.random());
     setDisplayedPokemon(shuffled);
   };
 
@@ -64,9 +66,16 @@ const PokemonList = () => {
           <span>Best Score: {bestScore}</span>
         </div>
       </div>
-      <div onClick={() => setCount((prev) => prev + 1)} className="flex-pokemon">
+      <div
+        onClick={() => setCount((prev) => prev + 1)}
+        className="flex-pokemon"
+      >
         {displayedPokemon.map((item, index) => (
-          <div key={index} className="card" onClick={() => handleScore(item.id)}>
+          <div
+            key={index}
+            className="card"
+            onClick={() => handleScore(item.id)}
+          >
             <img
               src={item.sprites.back_default}
               alt="image unavailable"
