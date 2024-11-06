@@ -45,6 +45,9 @@ body{
   color: white;
 }
 @media (max-width:425px) {
+  .flex-pokemon{
+   margin: 2em 0;
+  }
 .card {
  height:auto;
 
